@@ -238,6 +238,26 @@
 </div>
 
 <script>
+    // 1. Automatically shuffle all multiple-choice options when the page loads
+    document.addEventListener("DOMContentLoaded", () => {
+        const optionGrids = document.querySelectorAll('.options-grid');
+        
+        optionGrids.forEach(grid => {
+            // Get all buttons inside this specific question card
+            const buttons = Array.from(grid.children);
+            
+            // Fisher-Yates Shuffle Algorithm to randomize button order cleanly
+            for (let i = buttons.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [buttons[i], buttons[j]] = [buttons[j], buttons[i]];
+            }
+            
+            // Re-append the scrambled buttons back into the layout grid
+            buttons.forEach(button => grid.appendChild(button));
+        });
+    });
+
+    // 2. Handle the tapping mechanics and feedback box display
     function showFeedback(button, isCorrect, text) {
         const card = button.closest('.card');
         const feedbackBox = card.querySelector('.feedback-box');
