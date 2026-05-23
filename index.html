@@ -272,19 +272,20 @@
 </div>
 
 <script>
-    // Keep track of student's score parameters per question card
     const questionScores = {};
+    const totalQuestions = 10;
+    
+    // ⚠️ PASTE YOUR FORMSPREE LINK HERE INFRASTRUCTURE:
+    const EMAIL_ENDPOINT = "https://formspree.io/f/xgoqznvd";
 
     document.addEventListener("DOMContentLoaded", () => {
         const optionGrids = document.querySelectorAll('.options-grid');
-        
         optionGrids.forEach(grid => {
             const card = grid.closest('.card');
             const qId = card.getAttribute('data-question-id');
-            questionScores[qId] = 0; // Initialize score tracking
+            questionScores[qId] = 0;
 
             const buttons = Array.from(grid.children);
-            // Randomize options on launch
             for (let i = buttons.length - 1; i > 0; i--) {
                 const j = Math.floor(Math.random() * (i + 1));
                 [buttons[i], buttons[j]] = [buttons[j], buttons[i]];
@@ -304,25 +305,22 @@
         card.setAttribute('data-attempts', attempts);
 
         if (isCorrect) {
-            // Assign score depending on try number
             questionScores[qId] = (attempts === 1) ? 1.0 : 0.5;
             feedbackBox.innerHTML = `<strong>✅ Correct! (${questionScores[qId]} Mark Earned)</strong><br>${text}`;
             feedbackBox.className = 'feedback-box correct';
             lockQuestionCard(card);
         } else {
-            button.disabled = true; // Disable this specific wrong button choice
+            button.disabled = true;
             button.style.borderColor = '#ef4444';
             
             if (attempts === 1) {
                 triesLeftLabel.innerText = "1 try left";
                 feedbackBox.innerHTML = `<strong>❌ Try Again!</strong> ${text}`;
                 feedbackBox.className = 'feedback-box incorrect';
-                feedbackBox.style.display = 'block';
             } else {
-                // Out of attempts (2 tries used up, got it wrong)
                 questionScores[qId] = 0.0;
                 triesLeftLabel.innerText = "0 tries left";
-                feedbackBox.innerHTML = `<strong>❌ Incorrect (0 Marks).</strong> Out of tries. The correct answer was highlighted for review.`;
+                feedbackBox.innerHTML = `<strong>❌ Incorrect (0 Marks).</strong> The correct answer was highlighted.`;
                 feedbackBox.className = 'feedback-box incorrect';
                 lockQuestionCard(card);
             }
@@ -330,6 +328,7 @@
         
         feedbackBox.style.display = 'block';
         updateTotalScore();
+        checkQuizCompletion();
     }
 
     function lockQuestionCard(card) {
@@ -340,7 +339,6 @@
         
         buttons.forEach(btn => {
             btn.disabled = true;
-            // Highlight the correct answer item in green for reference once card finishes
             if (btn.getAttribute('data-correct') === 'true') {
                 btn.style.borderColor = '#22c55e';
                 btn.style.background = '#f0fdf4';
@@ -353,8 +351,42 @@
         for (const qId in questionScores) {
             total += questionScores[qId];
         }
-        // Update top browser display element dynamically
         document.getElementById('live-points').innerText = total.toFixed(1);
+    }
+
+    // New Function: Prompts student for their name and submits data when all 10 cards lock
+    function checkQuizCompletion() {
+        const completedCards = document.querySelectorAll('.card.locked').length;
+        
+        if (completedCards === totalQuestions) {
+            const finalScore = document.getElementById('live-points').innerText;
+            
+            // Wait slightly so the last feedback box shows before the prompt pops up
+            setTimeout(() => {
+                const studentName = prompt("🎉 Quiz Completed! Please enter your Full Name to submit your score to your teacher:");
+                
+                if (studentName) {
+                    // Send data to your email via Formspree API
+                    fetch(EMAIL_ENDPOINT, {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({
+                            Student_Name: studentName,
+                            Final_Score: finalScore + " / 10.0 Marks",
+                            Timestamp: new Date().toLocaleString("en-SG")
+                        })
+                    })
+                    .then(response => {
+                        if (response.ok) {
+                            alert(`Thank you, ${studentName}! Your score of ${finalScore} has been successfully sent to your teacher.`);
+                        } else {
+                            alert("Submission error. Please show your teacher your screen score!");
+                        }
+                    })
+                    .catch(error => alert("Connection error. Please show your teacher your score window!"));
+                }
+            }, 500);
+        }
     }
 </script>
 
