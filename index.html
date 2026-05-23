@@ -76,6 +76,7 @@
             font-size: 15px;
             font-weight: 500;
             transition: all 0.2s ease;
+            width: 100%;
         }
         .option-btn:hover {
             background: #f0fdf4;
@@ -119,9 +120,10 @@
         <div class="question-meta">Question 1</div>
         <div class="question-text">A bag of South Africa Candy Apples costs $1.95 for a mass of 500g. What is the cost rate of these apples per kilogram (1kg)?</div>
         <div class="options-grid">
-            <button class="option-btn" onclick="showFeedback(this, true, 'Correct! Since 1kg = 1000g (which is exactly double 500g), the price rate must also be doubled: $1.95 × 2 = $3.90.')">$3.90</button>
-            <button class="option-btn" onclick="showFeedback(this, false, 'Try again! This adds $1.00 to the price instead of doubling it to scale from 500g up to 1kg.')">$2.95</button>
-            <button class="option-btn" onclick="showFeedback(this, false, 'Try again! This divides the price by 2 instead of multiplying it to scale up to a larger mass.')">$0.98</button>
+            <button class="option-btn" onclick="showFeedback(this, true, 'Correct! Since 1kg = 1000g, which is exactly double 500g, the price rate must also be doubled: $1.95 × 2 = $3.90.')">$3.90</button>
+            <button class="option-btn" onclick="showFeedback(this, false, 'Try again! This incorrectly adds $1.00 to the price instead of doubling it to scale from 500g to 1000g.')">$2.95</button>
+            <button class="option-btn" onclick="showFeedback(this, false, 'Try again! This incorrectly divides the price by 2 instead of multiplying it to scale up to a larger mass.')">$0.98</button>
+            <button class="option-btn" onclick="showFeedback(this, false, 'Try again! This calculation error does not accurately double the baseline 500g price rate.')">$3.15</button>
         </div>
         <div class="feedback-box"></div>
     </div>
@@ -130,9 +132,10 @@
         <div class="question-meta">Question 2</div>
         <div class="question-text">A pack of China Fuji Apples contains 5 apples and costs $3.45. What is the average cost rate per individual apple?</div>
         <div class="options-grid">
-            <button class="option-btn" onclick="showFeedback(this, true, 'Correct! Dividing the total cost of the pack by the quantity of fruits gives the individual unit rate: $3.45 ÷ 5 = $0.69.')">$0.69</button>
-            <button class="option-btn" onclick="showFeedback(this, false, 'Try again! Double-check your decimal placement during the long division step.')">$0.59</button>
-            <button class="option-btn" onclick="showFeedback(this, false, 'Try again! Make sure you are dividing the total cost by the total quantity, not the other way around.')">$1.73</button>
+            <button class="option-btn" onclick="showFeedback(this, true, 'Correct! Dividing the total cost of the pack by the quantity of units gives the individual unit rate: $3.45 ÷ 5 = $0.69.')">$0.69</button>
+            <button class="option-btn" onclick="showFeedback(this, false, 'Try again! This is a calculation error when dividing the total price across the 5 units.')">$0.59</button>
+            <button class="option-btn" onclick="showFeedback(this, false, 'Try again! This error occurs if you divide the count of items by 2 instead of dividing the total money spent by 5.')">$1.73</button>
+            <button class="option-btn" onclick="showFeedback(this, false, 'Try again! This is an incorrect estimate that does not cleanly match the unit rate division of $3.45 ÷ 5.')">$0.75</button>
         </div>
         <div class="feedback-box"></div>
     </div>
@@ -143,7 +146,8 @@
         <div class="options-grid">
             <button class="option-btn" onclick="showFeedback(this, true, 'Perfect! The target weight of 3kg is exactly twice the original 1.5kg package weight, so doubling the baseline price yields $7.95 × 2 = $15.90.')">$15.90</button>
             <button class="option-btn" onclick="showFeedback(this, false, 'Try again! This mistakenly multiplies the price by 1.5 instead of doubling it to reach the 3kg target.')">$11.93</button>
-            <button class="option-btn" onclick="showFeedback(this, false, 'Try again! This incorrectly triples the baseline cost rate.')">$23.85</button>
+            <button class="option-btn" onclick="showFeedback(this, false, 'Try again! This incorrectly triples the baseline cost rate instead of scaling it by a factor of 2.')">$23.85</button>
+            <button class="option-btn" onclick="showFeedback(this, false, 'Try again! This merely adds $1.50 to the price, confusing the mass increment with a price factor.')">$9.45</button>
         </div>
         <div class="feedback-box"></div>
     </div>
@@ -152,9 +156,82 @@
         <div class="question-meta">Question 4</div>
         <div class="question-text">Pears Bonanza Australia Packham Pears are priced at $4.95 for an 800g bag. What is the cost rate per 100g for these pears?</div>
         <div class="options-grid">
-            <button class="option-btn" onclick="showFeedback(this, true, 'Correct! An 800g bag contains exactly eight smaller packets of 100g each. Dividing the total price by 8 yields $4.95 ÷ 8 = $0.61875 (approx. $0.62).')">$0.62</button>
+            <button class="option-btn" onclick="showFeedback(this, true, 'Correct! An 800g bag contains exactly eight smaller packets of 100g each. Dividing the total price to find the value of one piece yields $4.95 ÷ 8 = $0.61875 (approx. $0.62).')">$0.62</button>
             <button class="option-btn" onclick="showFeedback(this, false, 'Try again! This error assumes you shift the decimal point by dividing by 10, forgetting that the baseline mass is 800g rather than 1000g.')">$0.50</button>
-            <button class="option-btn" onclick="showFeedback(this, false, 'Try again! Double-check your division calculation across the 8 equal blocks of weight.')">$0.55</button>
+            <button class="option-btn" onclick="showFeedback(this, false, 'Try again! This is a calculation error when computing the division of the total bill across 8 equal blocks of weight.')">$0.55</button>
+            <button class="option-btn" onclick="showFeedback(this, false, 'Try again! This incorrect value stems from an inverted ratio or faulty division parameters.')">$0.40</button>
+        </div>
+        <div class="feedback-box"></div>
+    </div>
+
+    <div class="card">
+        <div class="question-meta">Question 5</div>
+        <div class="question-text">Italy Red Pop Apples are sold in a 700g bag for $5.45. If your recipe requires a custom amount of 1400g of these apples, what will the total purchase cost be?</div>
+        <div class="options-grid">
+            <button class="option-btn" onclick="showFeedback(this, true, 'Correct! Because 1400g is exactly twice the bag weight of 700g, the shopper must purchase two bags, making the cost $5.45 × 2 = $10.90.')">$10.90</button>
+            <button class="option-btn" onclick="showFeedback(this, false, 'Try again! This value incorrectly calculates the cost of three full bags instead of the required two bags.')">$16.35</button>
+            <button class="option-btn" onclick="showFeedback(this, false, 'Try again! This simply adds $2.00 to the base price, missing the proportional scaling relationship between the masses.')">$7.45</button>
+            <button class="option-btn" onclick="showFeedback(this, false, 'Try again! This represents a structural calculation breakdown when attempting to scale the fractional values.')">$8.18</button>
+        </div>
+        <div class="feedback-box"></div>
+    </div>
+
+    <div class="card">
+        <div class="question-meta">Question 6</div>
+        <div class="question-text">A customer buys a pack of China Premium Fuji Apples (4 per pack) for $4.85. A separate pack of China Fragrant Pears (6 per pack) costs $4.95. Which fruit has a cheaper individual unit rate per piece?</div>
+        <div class="options-grid">
+            <button class="option-btn" onclick="showFeedback(this, true, 'Correct! Pears cost $4.95 ÷ 6 = $0.83 per piece, while the apples cost $4.85 ÷ 4 = $1.21 per piece, making the pears more economical.')">The China Fragrant Pears are cheaper per piece.</button>
+            <button class="option-btn" onclick="showFeedback(this, false, 'Try again! This choice incorrectly assumes a lower total pack price automatically implies a lower single-unit price rate.')">The China Premium Fuji Apples are cheaper per piece.</button>
+            <button class="option-btn" onclick="showFeedback(this, false, 'Try again! This is incorrect because dividing the different prices by their unique pack sizes yields distinct unit values.')">They have the exact same unit rate per piece.</button>
+            <button class="option-btn" onclick="showFeedback(this, false, 'Try again! The problem asks for the unit rate strictly \'per piece\' rather than by mass, so weight data is unnecessary.')">It cannot be determined without knowing their weight.</button>
+        </div>
+        <div class="feedback-box"></div>
+    </div>
+
+    <div class="card">
+        <div class="question-meta">Question 7</div>
+        <div class="question-text">Simply Organic Italy Fuji Apples are listed at $6.95 for a 900g bag. If you want to find the theoretical rate per single gram, which mathematical operation should you set up?</div>
+        <div class="options-grid">
+            <button class="option-btn" onclick="showFeedback(this, true, 'Correct! To find the cost per individual unit of mass (1 gram), you must divide the total price by the total number of grams.')">$6.95 ÷ 900</button>
+            <button class="option-btn" onclick="showFeedback(this, false, 'Try again! This calculation yields the number of grams you get per single dollar spent, which is a different type of rate.')">900 ÷ $6.95</button>
+            <button class="option-btn" onclick="showFeedback(this, false, 'Try again! Multiplying the total price by the weight scales the numbers exponentially instead of finding a unit fraction.')">$6.95 × 900</button>
+            <button class="option-btn" onclick="showFeedback(this, false, 'Try again! Subtraction does not establish a proportional relationship or rate between mass and cost currency.')">900 - $6.95</button>
+        </div>
+        <div class="feedback-box"></div>
+    </div>
+
+    <div class="card">
+        <div class="question-meta">Question 8</div>
+        <div class="question-text">A chef wants to order a custom amount of 2.5kg of Packham Pears. The store sells them at a flat rate of $6.00 per kg. What is the total cost of this custom mass order?</div>
+        <div class="options-grid">
+            <button class="option-btn" onclick="showFeedback(this, true, 'Correct! Multiplying the custom mass by the baseline unit cost rate yields the total price: 2.5 × $6.00 = $15.00.')">$15.00</button>
+            <button class="option-btn" onclick="showFeedback(this, false, 'Try again! This mistake comes from accidentally adding the rate to the mass value instead of multiplying them proportionally.')">$12.50</button>
+            <button class="option-btn" onclick="showFeedback(this, false, 'Try again! This calculation error overestimates the cost, equivalent to buying 3kg instead of the requested 2.5kg.')">$18.00</button>
+            <button class="option-btn" onclick="showFeedback(this, false, 'Try again! This error occurs if you invert the operation and divide the rate by the mass instead of multiplying.')">$2.40</button>
+        </div>
+        <div class="feedback-box"></div>
+    </div>
+
+    <div class="card">
+        <div class="question-meta">Question 9</div>
+        <div class="question-text">France Organic Juliet Apples cost $7.80 for an 800g bag. If a school group buys a custom order of 2400g of these apples, how many total bags must they pay for?</div>
+        <div class="options-grid">
+            <button class="option-btn" onclick="showFeedback(this, true, 'Correct! Dividing the total target mass by the mass of a single bag tells you the quantity of items needed: 2400g ÷ 800g = 3 bags.')">3 bags</button>
+            <button class="option-btn" onclick="showFeedback(this, false, 'Try again! This overestimates the requirement, which would result in a surplus total weight of 3200g.')">4 bags</button>
+            <button class="option-btn" onclick="showFeedback(this, false, 'Try again! This is insufficient because two bags provide only 1600g, missing the 2400g benchmark.')">2 bags</button>
+            <button class="option-btn" onclick="showFeedback(this, false, 'Try again! This error confuses the total hundreds of grams needed with the actual number of packaged bags required.')">24 bags</button>
+        </div>
+        <div class="feedback-box"></div>
+    </div>
+
+    <div class="card">
+        <div class="question-meta">Question 10</div>
+        <div class="question-text">Using the previous question's data (France Organic Juliet Apples at $7.80 per 800g bag), what is the final cost for that custom order of 2400g?</div>
+        <div class="options-grid">
+            <button class="option-btn" onclick="showFeedback(this, true, 'Perfect! Since the custom order requires exactly 3 bags, scaling the baseline package price by 3 yields: 3 × $7.80 = $23.40.')">$23.40</button>
+            <button class="option-btn" onclick="showFeedback(this, false, 'Try again! This calculation only covers the cost of 2 bags instead of the full 3 bags required for the total mass.')">$15.60</button>
+            <button class="option-btn" onclick="showFeedback(this, false, 'Try again! This overcharges the customer by calculating the price of 4 bags instead of 3.')">$31.20</button>
+            <button class="option-btn" onclick="showFeedback(this, false, 'Try again! This simply adds $2.00 to the base rate, neglecting the correct multiplication factor.')">$9.80</button>
         </div>
         <div class="feedback-box"></div>
     </div>
@@ -169,7 +246,6 @@
         feedbackBox.className = 'feedback-box ' + (isCorrect ? 'correct' : 'incorrect');
         feedbackBox.style.display = 'block';
         
-        // Soft border styling on button selection
         const buttons = card.querySelectorAll('.option-btn');
         buttons.forEach(btn => btn.style.borderColor = '#e2e8f0');
         button.style.borderColor = isCorrect ? '#22c55e' : '#ef4444';
